@@ -3,10 +3,11 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import { Toast } from './components';
+import { Toast, Alert } from './components';
 
 Vue.config.productionTip = false;
 Vue.use(Toast);
+Vue.use(Alert);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

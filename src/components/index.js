@@ -1,5 +1,6 @@
 import Toast from './Toast';
+import Alert from './Alert';
 
 
-export { Toast };
+export { Toast, Alert };
 

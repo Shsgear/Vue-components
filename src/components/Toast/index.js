@@ -3,10 +3,10 @@ import merge from 'lodash/merge';
 import ToastComponent from './tpl';
 
 let instance;
-// 对于toast的全局配置
-let globalConfig = {};
+// 对于toast的默认配置
+let defaultConfig = {};
 
-// 创建Vue子实例，参数为组件
+// 创建Vue子实例，参数为包含template、script->data的vue
 const ToastConstructor = Vue.extend(ToastComponent);
 
 // 初始化挂载、append到body
@@ -23,6 +23,7 @@ const removeDom = (event) => {
   }
 };
 // 扩展Toast类的关闭方法
+/* eslint-disable func-names */
 ToastConstructor.prototype.close = function () {
   this.visible = false;
   this.$el.addEventListener('transitionend', removeDom);
@@ -33,14 +34,15 @@ const Toast = (options = {}) => {
   if (!SHOW_ONE) {
     SHOW_ONE = true;
     initInstance();
-    merge(instance.$data, globalConfig);
+    merge(instance.$data, defaultConfig);
 
     // merge(instance.$data, options);
     instance.content = typeof options === 'string' ? options : options.content;
     instance.position = options.position || 'center';
     instance.duration = options.duration || 3000;
     instance.html = options.html || '';
-    // 数据更改后的回调，数据发生改变就调用
+    // 此时虽然赋值了，但是DOM不会立即更新，再nextTick中获取到的才是数据更新后的东西
+    // 数据更改后的回调，数据发生改变再调用
     Vue.nextTick(() => {
       instance.visible = true;
       instance.$el.removeEventListener('transitionend', removeDom);
@@ -48,12 +50,15 @@ const Toast = (options = {}) => {
         instance.close();
         SHOW_ONE = false;
       }, instance.duration));
+      instance.timer = null;
     });
   }
 };
+/* eslint-disable no-shadow  */
+/* eslint-disable no-param-reassign  */
 export default {
   install(Vue, config = {}) {
-    globalConfig = config;
+    defaultConfig = config;
     Vue.prototype.$toast = Toast;
   },
 };

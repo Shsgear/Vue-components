@@ -1,6 +1,7 @@
 <template>
   <transition name="sh-fade">
-    <div class="sh-toast" v-if="visible" :class="{'sh-toast-top': position === 'top', 'sh-toast-bottom': position === 'bottom', 'sh-toast-center': position === 'center'}">
+    <div class="sh-toast" v-if="visible"
+     :class="{'sh-toast-top': position === 'top', 'sh-toast-bottom': position === 'bottom', 'sh-toast-center': position === 'center'}">
       <div class="sh-toast-message">
         <p class="sh-toast-text" v-if="html!=''" v-html="html"></p>
         <p class="sh-toast-text" v-else> {{content}} </p>
