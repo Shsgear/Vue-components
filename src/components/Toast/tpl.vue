@@ -2,7 +2,8 @@
   <transition name="sh-fade">
     <div class="sh-toast" v-if="visible" :class="{'sh-toast-top': position === 'top', 'sh-toast-bottom': position === 'bottom', 'sh-toast-center': position === 'center'}">
       <div class="sh-toast-message">
-        <p class="sh-toast-text"> {{content}} </p>
+        <p class="sh-toast-text" v-if="html!=''" v-html="html"></p>
+        <p class="sh-toast-text" v-else> {{content}} </p>
       </div>
     </div>
   </transition>
@@ -15,6 +16,7 @@ export default {
       content: '',
       duration: 3000,
       position: 'center',
+      html: '',
     };
   },
 };
@@ -23,7 +25,7 @@ export default {
   .sh-toast {
     position: fixed;
     z-index: 999999;
-    line-height: 17px;
+    line-height: 13px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -36,7 +38,7 @@ export default {
   }
   .sh-toast-message {
     font-size: 14px;
-    padding: 12px 16px;
+    padding: 0 20px;
     text-align: center;
     color: #fff;
     border-radius: 6px;

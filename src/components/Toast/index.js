@@ -39,12 +39,13 @@ const Toast = (options = {}) => {
     instance.content = typeof options === 'string' ? options : options.content;
     instance.position = options.position || 'center';
     instance.duration = options.duration || 3000;
+    instance.html = options.html || '';
     // 数据更改后的回调，数据发生改变就调用
     Vue.nextTick(() => {
       instance.visible = true;
       instance.$el.removeEventListener('transitionend', removeDom);
       (instance.timer = setTimeout(() => {
-        instance.close();
+        // instance.close();
         SHOW_ONE = false;
       }, instance.duration));
     });
