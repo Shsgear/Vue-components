@@ -45,7 +45,7 @@ const Toast = (options = {}) => {
       instance.visible = true;
       instance.$el.removeEventListener('transitionend', removeDom);
       (instance.timer = setTimeout(() => {
-        // instance.close();
+        instance.close();
         SHOW_ONE = false;
       }, instance.duration));
     });

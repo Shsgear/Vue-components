@@ -4,7 +4,7 @@
     <!-- <router-view/> -->
     <button @click="toast(position='center')">Toast Default</button>
     <button @click="toast(position='top')">Toast Top</button>
-    <button @click="toast(position='bottom')">Toast Bottom with html</button>
+    <button @click="toastWithHtml(position='bottom')">Toast Bottom with html</button>
   </div>
 </template>
 
@@ -18,6 +18,12 @@ export default {
   },
   methods: {
     toast(position) {
+      this.$toast({
+        content: '这是content',
+        position: position,
+      });
+    },
+    toastWithHtml(position) {
       this.$toast({
         content: '这是content',
         position: position,
