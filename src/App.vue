@@ -42,13 +42,12 @@ export default {
   methods: {
     toast(position) {
       this.$toast({
-        content: '这是content',
+        html: '这是content',
         position,
       });
     },
     toastWithHtml(position) {
       this.$toast({
-        content: '这是content',
         position,
         html: '<i style="color: green">HTML</i>',
       });

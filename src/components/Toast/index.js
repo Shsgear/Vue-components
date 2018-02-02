@@ -37,10 +37,10 @@ const Toast = (options = {}) => {
     merge(instance.$data, defaultConfig);
 
     // merge(instance.$data, options);
-    instance.content = typeof options === 'string' ? options : options.content;
+    instance.html = typeof options === 'string' ? options : options.html;
     instance.position = options.position || 'center';
     instance.duration = options.duration || 3000;
-    instance.html = options.html || '';
+    // instance.html = options.html || '';
     // 此时虽然赋值了，但是DOM不会立即更新，再nextTick中获取到的才是数据更新后的东西
     // 数据更改后的回调，数据发生改变再调用
     Vue.nextTick(() => {
