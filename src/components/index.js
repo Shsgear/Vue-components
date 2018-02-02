@@ -1,6 +1,6 @@
 import Toast from './Toast';
-import Alert from './Alert';
+import MessageBox from './MessageBox';
 
 
-export { Toast, Alert };
+export { Toast, MessageBox };
 

@@ -54,10 +54,8 @@ const Toast = (options = {}) => {
     });
   }
 };
-/* eslint-disable no-shadow  */
-/* eslint-disable no-param-reassign  */
 export default {
-  install(Vue, config = {}) {
+  install(config = {}) {
     defaultConfig = config;
     Vue.prototype.$toast = Toast;
   },

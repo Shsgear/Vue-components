@@ -1,6 +1,8 @@
 <template>
   <transition name="sh-fade">
+    <!-- eslint-disable max-len -->
     <div class="sh-toast" v-if="visible"
+
      :class="{'sh-toast-top': position === 'top', 'sh-toast-bottom': position === 'bottom', 'sh-toast-center': position === 'center'}">
       <div class="sh-toast-message">
         <p class="sh-toast-text" v-if="html!=''" v-html="html"></p>
@@ -26,7 +28,7 @@ export default {
   .sh-toast {
     position: fixed;
     z-index: 999999;
-    line-height: 13px;
+    line-height: 30px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -49,6 +51,7 @@ export default {
     flex-direction:column;
     align-items:center;
     justify-content:center;
+    // padding: 10px 10px;
     // .sh-toast__text {
 
     // }

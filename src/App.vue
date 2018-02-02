@@ -6,6 +6,13 @@
     <button @click="toast(position='top')">Toast Top</button>
     <button @click="toastWithHtml(position='bottom')">Toast Bottom with html</button><br>
     <button @click="alert">alert</button>
+    <!-- eslint-disable max-len  -->
+    <message-box :popupShow.sync="popupShow" :popupTitle="popupTitle" :popupMessage="popupMessage" @catch-popup-result="onResultChange">
+      <!-- <div class="sh-popup-buttons" slot="sh-popup-buttons">
+        <button  class="btn-cancel" @click="handleAction('reject')"> {{cancelText}} </button>
+        <button  class="btn-confirm"  @click="handleAction('resolve')"> {{confirmText}} </button>
+      </div> -->
+    </message-box>
   </div>
 </template>
 
@@ -15,10 +22,22 @@ export default {
   data() {
     return {
 
+      // popupTitle: '',
+      popupShow: false,
+      popupTitle: '',
+      popupMessage: '',
+      popupCancelText: '取消',
+      popupConfirmText: '确定',
+      closeIconVisible: true,
+      popupBtnCancel: true,
+      popupBtnConfirm: true,
     };
   },
-  mounted() {
+  created() {
 
+  },
+  mounted() {
+    // this.popupShow = true;
   },
   methods: {
     toast(position) {
@@ -42,10 +61,18 @@ export default {
       // })
     },
     alert() {
-      this.$alert('12123').then(res => {
-        alert(1);
+      this.popupShow = true;
+      this.popupTitle = 'title';
+      this.popupMessage = 'message';
+    },
+    onResultChange(result) {
+      if (!result) return;
+      result.then((res) => {
+        this.$toast(`点击结果是${res}`);
+      }, (rej) => {
+        this.$toast(`点击结果是${rej}`);
       });
-    }
+    },
   },
 };
 </script>
@@ -59,5 +86,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+*{
+  margin: 0;
+  padding: 0;
 }
 </style>
