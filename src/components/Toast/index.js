@@ -48,7 +48,6 @@ const removeDom = (event) => {
 ToastConstructor.prototype.close = function () {
   this.visible = false;
   this.$el.addEventListener('transitionend', removeDom);
-
 };
 // let SHOW_ONE = false;
 const Toast = (options = {}) => {
@@ -61,7 +60,6 @@ const Toast = (options = {}) => {
   let prevInstance;
   if (toastQueue.length > 1) {
     prevInstance = toastQueue.shift();
-    console.log(prevInstance);
     prevInstance.close();
     clearTimeout(prevInstance.timer);
   }

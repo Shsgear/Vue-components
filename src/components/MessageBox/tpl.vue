@@ -6,13 +6,13 @@
           <i @click="close" class="sh-popup-close" v-if="closeIconVisible"></i>
           <p class="sh-popup-title"> {{popupTitle}} </p>
         </div>
-        <div class="sh-popup-content" v-if="popupMessage !== ''">
+        <div class="sh-popup-content">
           <p class="sh-popup-message" v-html="popupMessage"></p>
         </div>
         <!-- eslint-disable max-len -->
         <div class="sh-popup-buttons">
-          <button  class="sh-popup-btn-cancel" v-if="popupBtnCancel" @click="handleAction('reject')"> {{popupCancelText}} </button>
-          <button  class="sh-popup-btn-confirm" v-if="popupBtnConfirm"  @click="handleAction('resolve')"> {{popupConfirmText}} </button>
+          <button class="sh-popup-btn-cancel" v-if="popupBtnCancel" @click="handleAction('reject')"> {{popupCancelText}} </button>
+          <button class="sh-popup-btn-confirm" v-if="popupBtnConfirm"  @click="handleAction('resolve')"> {{popupConfirmText}} </button>
         </div>
       </div>
   </div>
@@ -149,7 +149,7 @@ export default {
     }
   }
   .sh-popup-content{
-    padding: 18px 12px;
+    padding: 24px 12px;
     text-align: center;
     font-size: 14px;
     line-height: 20px;

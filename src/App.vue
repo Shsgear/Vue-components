@@ -6,6 +6,7 @@
     <button @click="toast(position='top')">Toast Top</button>
     <button @click="toastWithHtml(position='bottom')">Toast Bottom with html</button><br>
     <button @click="alert">alert</button>
+    <button @click="anotherAlert">another alert</button>
     <!-- eslint-disable max-len  -->
     <message-box :popupShow.sync="popupShow" :popupTitle="popupTitle" :popupMessage="popupMessage" @catch-popup-result="onResultChange">
       <!-- <div class="sh-popup-buttons" slot="sh-popup-buttons">
@@ -51,18 +52,16 @@ export default {
         position,
         html: '<i style="color: green">HTML</i>',
       });
-      // this.$alert({
-
-      // }).then(res => {
-
-      // }, rej => {
-
-      // })
     },
     alert() {
       this.popupShow = true;
       this.popupTitle = 'title';
       this.popupMessage = 'message';
+    },
+    anotherAlert() {
+      this.popupShow = true;
+      this.popupTitle = 'sjdghj所得税的痕迹';
+      this.popupMessage = 'sjdghj所得税的痕迹';
     },
     onResultChange(result) {
       if (!result) return;
