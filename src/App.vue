@@ -6,7 +6,7 @@
     <button @click="toast(position='top')">Toast Top</button>
     <button @click="toastWithHtml(position='bottom')">Toast Bottom with html</button><br>
     <button @click="alert">alert</button>
-    <button @click="anotherAlert">another alert</button>
+    <button @click="confirm">confirm</button>
     <!-- eslint-disable max-len  -->
     <message-box :popupShow.sync="popupShow" :popupTitle="popupTitle" :popupMessage="popupMessage" @catch-popup-result="onResultChange">
       <!-- <div class="sh-popup-buttons" slot="sh-popup-buttons">
@@ -54,7 +54,7 @@ export default {
       });
     },
     alert() {
-      $dialog.alert({
+      window.$dialog.alert({
         title: '这是alert header',
         content: '这是alert content',
         okText: '12',
@@ -67,10 +67,19 @@ export default {
       // this.popupTitle = 'title';
       // this.popupMessage = 'message';
     },
-    anotherAlert() {
-      this.popupShow = true;
-      this.popupTitle = 'sjdghj所得税的痕迹';
-      this.popupMessage = 'sjdghj所得税的痕迹';
+    confirm() {
+      // this.popupShow = true;
+      // this.popupTitle = 'sjdghj所得税的痕迹';
+      // this.popupMessage = 'sjdghj所得税的痕迹';
+      window.$dialog.confirm({
+        title: '这是confirm header',
+        content: '这是confirm content',
+        okText: '12',
+        showClose: true,
+        preventScroll: false,
+      }).then((res) => {
+        this.$toast(`点击了${res}`);
+      });
     },
     onResultChange(result) {
       if (!result) return;

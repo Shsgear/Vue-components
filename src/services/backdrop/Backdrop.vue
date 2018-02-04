@@ -14,7 +14,7 @@ export default {
     };
   },
   destroyed() {
-    console.log('Backdrop _vm destroyed');
+    // console.log('Backdrop _vm destroyed');
     removeElement('[sun-backdrop]');
   },
   methods: {

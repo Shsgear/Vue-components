@@ -8,7 +8,7 @@ const popup_leave_duration = 200;
 
 export default {
   destroyed() {
-    console.log('[sun-dialog] Disalog destroyed');
+    // console.log('[sun-dialog] Disalog destroyed');
     const parent = this.$el.parentNode;
     parent.removeChild(this.$el);
   },

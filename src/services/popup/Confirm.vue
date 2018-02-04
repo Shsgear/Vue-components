@@ -12,6 +12,7 @@
         <div class="popup-body" v-html="content"></div>
 
         <div class="popup-buttons">
+          <button @click="onCancel" v-text="cancelText"></button>
           <button @click="onOk" v-text="okText"></button>
         </div>
 
@@ -22,6 +23,7 @@
 </template>
 <script>
 import mixin from './mixin';
+import assign from 'lodash/assign';
 
 export default {
   mixins: [mixin],
@@ -32,8 +34,33 @@ export default {
       okText: '确定',
       activeState: 0, // 0 hideen  1 :showing
       showClose: false,
-      preventScroll: true,
+      // preventScroll: true,
+      cancelText: '取消',
     };
+  },
+  methods: {
+    // 覆盖mixin中的方法
+    show(options) {
+      assign(this, options);
+      window.$backdrop.show();
+      this.activeState = 1;
+      return new Promise((resolve, reject) => {
+        this.$on('ConfirmOkEvent', () => {
+          this.hide();
+          resolve('confirm');
+        });
+        this.$on('ConfirmCancelEvent', () => {
+          this.hide();
+          resolve('cancel');
+        });
+      })
+    },
+    onOk() {
+      this.$emit('ConfirmOkEvent');
+    },
+    onCancel() {
+      this.$emit('ConfirmCancelEvent');
+    },
   },
 };
 </script>
@@ -101,15 +128,22 @@ export default {
       // padding: 8px 0;
       margin-bottom: 10px;
       padding: 0 10px;
+      justify-content: flex-start;
       button {
         font-size: 14px;
-        flex: 1 0 50%;
+        flex: 1 0 auto;
         border: none;
         outline: none;
-        background: rgb(78, 156, 252);
+        background: #ea5a49;
         color: #fff;
         min-height: 35px;
         border-radius: 2px;
+        &:not(:last-child) {
+          margin-right: 5px;
+          background: rgba(255, 255, 255, 0.9);
+          border: 1px solid #eee;
+          color: #333;
+        }
       }
     }
   }
