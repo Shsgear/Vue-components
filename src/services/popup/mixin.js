@@ -3,8 +3,8 @@ import assign from 'lodash/assign';
 
 /* eslint-disable camelcase */
 // 进入和离开的过渡时间
-const popup_enter_duration = 200;
-const popup_leave_duration = 300;
+const popup_enter_duration = 100;
+const popup_leave_duration = 200;
 
 export default {
   destroyed() {
@@ -15,9 +15,10 @@ export default {
   methods: {
     show(options) {
       assign(this, options);
-      console.log($backdrop);
       if ($backdrop.getState() === 0) $backdrop.show();
-      this.activeState = 1;
+      setTimeout(() => {
+        this.activeState = 1;
+      }, popup_enter_duration);
       return new Promise((resolve) => {
         this.$on('AlertOkEvent', () => {
           this.hide();
