@@ -15,7 +15,7 @@ export default {
   methods: {
     show(options) {
       assign(this, options);
-      if ($backdrop.getState() === 0) $backdrop.show();
+      if (window.$backdrop.getState() === 0) window.$backdrop.show();
       setTimeout(() => {
         this.activeState = 1;
       }, popup_enter_duration);
@@ -28,8 +28,8 @@ export default {
     },
 
     hide() {
-      if (document.querySelectorAll('[sun-dialog]').length == 1) {
-        $backdrop.hide();
+      if (document.querySelectorAll('[sun-dialog]').length === 1) {
+        window.$backdrop.hide();
       }
       this.activeState = 2;
       // 延迟摧毁，实现动画效果

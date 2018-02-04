@@ -3,7 +3,7 @@ import Alert from './Alert';
 import { createElement } from '../util';
 
 let vm;
-
+/* eslint-disable class-methods-use-this */
 class Dialog {
   show(type, options) {
     const maker = `sun-${type}`;
@@ -11,9 +11,8 @@ class Dialog {
     createElement(maker);
     const selector = `[${maker}]`;
     vm = new Vue(
-      type == 'alert' ? Alert : Confirm,
+      type === 'alert' ? Alert : Confirm,
     ).$mount(selector);
-    console.log(vm);
     vm.$el.setAttribute('sun-dialog', '');
 
     return vm.show(options);

@@ -57,9 +57,11 @@ export default {
       $dialog.alert({
         title: '这是alert header',
         content: '这是alert content',
+        okText: '12',
         showClose: true,
+        preventScroll: false,
       }).then(() => {
-        console.log('onok')
+        this.$toast('点击了ok');
       });
       // this.popupShow = true;
       // this.popupTitle = 'title';
@@ -83,7 +85,11 @@ export default {
 </script>
 
 <style>
+html, body{
+  height: 100%;
+}
 #app {
+  height: 200%;
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue",
                STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1,11 +1,11 @@
 <template>
 
-    <div class="popup-container">
+    <div class="popup-container" @touchmove.prevent @scroll.prevent>
       <transition name="popup-bounce">
         <!-- 此处加入 v-show是为了获取动画效果-->
       <div class="popup" v-show="activeState === 1">
-        <i @click="hide(-1)" class="popup-close" v-if="showClose"></i>
-        <div class="popup-header">
+        <i @click="hide" class="popup-close" v-if="showClose"></i>
+        <div class="popup-header" v-if="title">
           <div class="popup-title" v-html="title"></div>
         </div>
 
@@ -30,8 +30,9 @@ export default {
       title: "",
       content: "",
       okText: "确定",
-      activeState: 0, //0 hideen  1 :showing  2:active
-      showClose: false
+      activeState: 0, //0 hideen  1 :showing
+      showClose: false,
+      preventScroll: true,
     };
   },
   mounted() {
@@ -86,15 +87,16 @@ export default {
       }
     }
     .popup-header {
-      background: rgb(78, 156, 252);
-      padding: 8px 0;
-      color: #fff;
+      // background: rgb(78, 156, 252);
+      padding: 10px 0;
+      // color: #fff;
       text-align: center;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
+      border-bottom: 1px solid #eee;
     }
     .popup-body {
-      padding: 20px 12px;
+      padding: 30px 12px;
       font-size: 14px;
       line-height: 20px;
     }
