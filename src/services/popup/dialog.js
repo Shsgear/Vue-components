@@ -7,12 +7,13 @@ let vm;
 class Dialog {
   show(type, options) {
     const maker = `sun-${type}`;
+
     createElement(maker);
     const selector = `[${maker}]`;
     vm = new Vue(
       type == 'alert' ? Alert : Confirm,
     ).$mount(selector);
-
+    console.log(vm);
     vm.$el.setAttribute('sun-dialog', '');
 
     return vm.show(options);

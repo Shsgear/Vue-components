@@ -9,7 +9,7 @@ const popup_leave_duration = 200;
 export default {
   destroyed() {
     console.log('[sun-dialog] Disalog destroyed');
-    let parent = this.$el.parentNode;
+    const parent = this.$el.parentNode;
     parent.removeChild(this.$el);
   },
   methods: {
@@ -32,6 +32,7 @@ export default {
         $backdrop.hide();
       }
       this.activeState = 2;
+      // 延迟摧毁，实现动画效果
       setTimeout(() => {
         this.activeState = 0;
         this.$destroy();

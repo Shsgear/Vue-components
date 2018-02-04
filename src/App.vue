@@ -60,7 +60,7 @@ export default {
         showClose: true,
       }).then(() => {
         console.log('onok')
-      })
+      });
       // this.popupShow = true;
       // this.popupTitle = 'title';
       // this.popupMessage = 'message';
