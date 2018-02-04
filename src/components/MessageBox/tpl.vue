@@ -149,7 +149,7 @@ export default {
     }
   }
   .sh-popup-content{
-    padding: 24px 12px;
+    padding: 20px 12px;
     text-align: center;
     font-size: 14px;
     line-height: 20px;

@@ -32,6 +32,10 @@ class SunBackdrop {
       });
     }
   }
+
+  getState() {
+    return this._vm ? this._vm.getState() : 0;
+  }
 }
 
 export default new SunBackdrop();

@@ -54,9 +54,16 @@ export default {
       });
     },
     alert() {
-      this.popupShow = true;
-      this.popupTitle = 'title';
-      this.popupMessage = 'message';
+      $dialog.alert({
+        title: '这是alert header',
+        content: '这是alert content',
+        showClose: true,
+      }).then(() => {
+        console.log('onok')
+      })
+      // this.popupShow = true;
+      // this.popupTitle = 'title';
+      // this.popupMessage = 'message';
     },
     anotherAlert() {
       this.popupShow = true;

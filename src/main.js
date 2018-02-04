@@ -2,15 +2,16 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import fastClick from 'fastclick';
-
-
+import install from './install';
 import App from './App';
 import router from './router';
 import { Toast, MessageBox } from './components';
 
+
 Vue.config.productionTip = false;
 Vue.use(Toast);
 Vue.use(MessageBox);
+Vue.use(install);
 Vue.component(MessageBox.name, MessageBox);
 
 fastClick.attach(document.body);
