@@ -14,7 +14,7 @@
         <button  class="btn-cancel" @click="handleAction('reject')"> {{cancelText}} </button>
         <button  class="btn-confirm"  @click="handleAction('resolve')"> {{confirmText}} </button>
       </div> -->
-    <!-- </message-box> -->``
+    <!-- </message-box> -->
   </div>
 </template>
 
@@ -84,9 +84,9 @@ export default {
       window.$loading.open({
         fullScreen: true,
       });
-      setTimeout(() => {
-        window.$loading.close();
-      }, 3000);
+      // setTimeout(() => {
+      //   window.$loading.close();
+      // }, 3000);
     },
   },
 };
