@@ -6,14 +6,15 @@
     <button @click="toast(position='top')">Toast Top</button>
     <button @click="toastWithHtml(position='bottom')">Toast Bottom with html</button><br>
     <button @click="alert">alert</button>
-    <button @click="confirm">confirm</button>
+    <button @click="confirm">confirm</button><br>
+    <button @click="loading">Loading</button><br>
     <!-- eslint-disable max-len  -->
-    <message-box :popupShow.sync="popupShow" :popupTitle="popupTitle" :popupMessage="popupMessage" @catch-popup-result="onResultChange">
+    <!-- <message-box :popupShow.sync="popupShow" :popupTitle="popupTitle" :popupMessage="popupMessage" @catch-popup-result="onResultChange"> -->
       <!-- <div class="sh-popup-buttons" slot="sh-popup-buttons">
         <button  class="btn-cancel" @click="handleAction('reject')"> {{cancelText}} </button>
         <button  class="btn-confirm"  @click="handleAction('resolve')"> {{confirmText}} </button>
       </div> -->
-    </message-box>
+    <!-- </message-box> -->``
   </div>
 </template>
 
@@ -24,14 +25,14 @@ export default {
     return {
 
       // popupTitle: '',
-      popupShow: false,
-      popupTitle: '',
-      popupMessage: '',
-      popupCancelText: '取消',
-      popupConfirmText: '确定',
-      closeIconVisible: true,
-      popupBtnCancel: true,
-      popupBtnConfirm: true,
+      // popupShow: false,
+      // popupTitle: '',
+      // popupMessage: '',
+      // popupCancelText: '取消',
+      // popupConfirmText: '确定',
+      // closeIconVisible: true,
+      // popupBtnCancel: true,
+      // popupBtnConfirm: true,
     };
   },
   created() {
@@ -68,26 +69,24 @@ export default {
       // this.popupMessage = 'message';
     },
     confirm() {
-      // this.popupShow = true;
-      // this.popupTitle = 'sjdghj所得税的痕迹';
-      // this.popupMessage = 'sjdghj所得税的痕迹';
       window.$dialog.confirm({
         title: '这是confirm header',
         content: '这是confirm content',
-        okText: '12',
+        okText: 'ok',
+        cancelText: 'cancel',
         showClose: true,
         preventScroll: false,
       }).then((res) => {
         this.$toast(`点击了${res}`);
       });
     },
-    onResultChange(result) {
-      if (!result) return;
-      result.then((res) => {
-        this.$toast(`点击结果是${res}`);
-      }, (rej) => {
-        this.$toast(`点击结果是${rej}`);
+    loading() {
+      window.$loading.open({
+        fullScreen: true,
       });
+      setTimeout(() => {
+        window.$loading.close();
+      }, 3000);
     },
   },
 };

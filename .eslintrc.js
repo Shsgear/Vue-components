@@ -40,6 +40,9 @@ module.exports = {
         'e' // for e.returnvalue
       ]
     }],
+    // 关闭class中方法必须使用this
+    "class-methods-use-this": "off",
+
     // allow optionalDependencies
     'import/no-extraneous-dependencies': ['error', {
       optionalDependencies: ['test/unit/index.js']

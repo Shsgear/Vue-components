@@ -22,8 +22,8 @@
 
 </template>
 <script>
-import mixin from './mixin';
 import assign from 'lodash/assign';
+import mixin from './mixin';
 
 export default {
   mixins: [mixin],
@@ -39,12 +39,15 @@ export default {
     };
   },
   methods: {
+    a() {
+      // console.log(1);
+    },
     // 覆盖mixin中的方法
     show(options) {
       assign(this, options);
       window.$backdrop.show();
       this.activeState = 1;
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         this.$on('ConfirmOkEvent', () => {
           this.hide();
           resolve('confirm');
@@ -53,7 +56,7 @@ export default {
           this.hide();
           resolve('cancel');
         });
-      })
+      });
     },
     onOk() {
       this.$emit('ConfirmOkEvent');
