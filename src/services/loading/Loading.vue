@@ -2,7 +2,7 @@
   <div class="loading-wrapper" @touchmove.prevent>
     <transition>
       <div class="loading" v-show="activeState === 1">
-        <div class="loading-ring" v-if="animationType === '' || animationType === 'ring'"></div>
+        <div class="loading-ring" v-if="animationType === 'ring' || animationType === 'default'"></div>
         <div class="loading-spinner" v-if="animationType === 'spinner'">
           <div></div>
           <div></div>
@@ -116,6 +116,7 @@ export default {
       height: 30px;
       border: 3px solid #ccc;
       border-radius: 50%;
+      margin-bottom: 14px;
       // border-width: 3px 3px 3px 0px;
       border-color: #ccc #ccc #ccc transparent;
       animation: ring 1s linear infinite;
@@ -135,10 +136,10 @@ export default {
       content: "";
       display: block;
       position: absolute;
-      top: 3px;
+      top: 8px;
       left: 29px;
       width: 3px;
-      height: 12px;
+      height: 10px;
       border-radius: 20%;
       background: #fff;
     }

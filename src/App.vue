@@ -83,10 +83,14 @@ export default {
     loading() {
       window.$loading.open({
         fullScreen: true,
+        animationType: 'ring',
+        text: '正在加载...',
       });
-      // setTimeout(() => {
-      //   window.$loading.close();
-      // }, 3000);
+      setTimeout(() => {
+        window.$loading.close();
+        this.$toast('21');
+      }, 3000);
+
     },
   },
 };
