@@ -7,14 +7,17 @@
     <button @click="toastWithHtml(position='bottom')">Toast Bottom with html</button><br>
     <button @click="alert">alert</button>
     <button @click="confirm">confirm</button><br>
-    <button @click="loading">Loading</button><br>
-    <!-- eslint-disable max-len  -->
-    <!-- <message-box :popupShow.sync="popupShow" :popupTitle="popupTitle" :popupMessage="popupMessage" @catch-popup-result="onResultChange"> -->
-      <!-- <div class="sh-popup-buttons" slot="sh-popup-buttons">
-        <button  class="btn-cancel" @click="handleAction('reject')"> {{cancelText}} </button>
-        <button  class="btn-confirm"  @click="handleAction('resolve')"> {{confirmText}} </button>
-      </div> -->
-    <!-- </message-box> -->
+    <button @click="loading({animationType: 'ring'})">Loading default</button>
+    <!-- eslint-disable max-len -->
+    <button @click="loading({fullscreen: false, animationType: 'spinner', fullscreen: true})">Loading with fullscreen</button>
+    <div class="range-wrapper">
+      <sun-range>
+        <span slot="start" class="range-left">0</span>
+        <span slot="end" class="range-right">100</span>
+      </sun-range>
+    </div>
+
+
   </div>
 </template>
 
@@ -80,17 +83,16 @@ export default {
         this.$toast(`点击了${res}`);
       });
     },
-    loading() {
+    loading(options) {
       window.$loading.open({
-        fullScreen: true,
-        animationType: 'ring',
+        fullScreen: options.fullscreen,
+        animationType: options.animationType,
         text: '正在加载...',
       });
       setTimeout(() => {
         window.$loading.close();
-        this.$toast('21');
+        this.$toast('加载完成');
       }, 3000);
-
     },
   },
 };
@@ -113,5 +115,9 @@ html, body{
 *{
   margin: 0;
   padding: 0;
+}
+.range-wrapper{
+  width: 50%;
+  margin: 40px auto;
 }
 </style>

@@ -6,13 +6,14 @@ import install from './install';
 import App from './App';
 import router from './router';
 import { Toast, MessageBox } from './components';
-
+import SunRange from './components/range/Range';
 
 Vue.config.productionTip = false;
 Vue.use(Toast);
 Vue.use(MessageBox);
 Vue.use(install);
 Vue.component(MessageBox.name, MessageBox);
+Vue.component(SunRange.name, SunRange);
 
 fastClick.attach(document.body);
 /* eslint-disable no-new */

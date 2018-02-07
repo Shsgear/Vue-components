@@ -2,6 +2,7 @@
   <div class="loading-wrapper" @touchmove.prevent>
     <transition>
       <div class="loading" v-show="activeState === 1">
+        <!-- eslint-disable max-len  -->
         <div class="loading-ring" v-if="animationType === 'ring' || animationType === 'default'"></div>
         <div class="loading-spinner" v-if="animationType === 'spinner'">
           <div></div>
