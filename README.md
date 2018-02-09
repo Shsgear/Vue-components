@@ -76,21 +76,22 @@ this.$toast({
 | duration | number | 持续时间（毫秒）  | 3000
 | html     | string | 可配置的html     |
 
-- **Alert**
-> 入口文件引入Alert
+- **Alert和Confirm**
+alert和confirm属于定制度较高的组件，只留有少量的配置
+> 入口文件引入Dialog
 ``` javascript
-import { Confirm } from './service';
-Vue.use(Confirm);
+import { Dialog } from './service';
+Vue.use(Dialog);
 ```
 >在.vue文件中使用
 
 初期已经将组件注册在Vue的原型中，所以可以直接使用
 ``` javascript
-this.$confirm.alert('hello world');
+this.$dialog.alert('hello world');
 ```
-可配置的选项,支持Promise回调
+alert可配置的选项,支持Promise回调
 ``` javascript
-this.$confirm.alert({
+this.$dialog.alert({
   title: '这是alert header',
   content: '这是alert content',
   okText: '确定',
@@ -98,3 +99,64 @@ this.$confirm.alert({
   this.$toast('点击了确定');
 });
 ```
+ key       |    value     |    description  | default
+| :---     | :------------| :------: | :----------:
+| title | String  |  标题  |  ''
+| content | String | 内容  | ''
+| okText     | String | 确定按钮文字    | '确定'
+| showClose  | Boolean| 是否显示关闭按钮| false
+
+confirm可配置的选项,支持Promise回调
+``` javascript
+this.$dialog.confirm({
+  title: '这是confirm header',
+  content: '这是confirm content',
+  okText: 'ok',
+  cancelText: 'cancel',
+}).then(res => {
+  this.$toast('点击了确定');
+}, rej => {
+  this.$toast('点击了取消');
+});
+```
+ key       |    value     |    description  | default
+| :---     | :------------| :------: | :----------:
+| title | String  |  标题  |  ''
+| content | String | 内容  | ''
+| okText     | String | 确定按钮文字    | '确定'
+| showClose  | Boolean| 是否显示关闭按钮| false
+| cancelText | String | 取消按钮文字| '取消'
+
+
+- **Loading**
+``` javascript
+import { Loading } from './service';
+Vue.use(Loading);
+```
+>在.vue文件中使用
+
+初期已经将组件注册在Vue的原型中，所以可以直接使用
+``` javascript
+this.$loading.open();
+```
+在使用open方法后，loading会一直存在，必须手动关闭
+``` javascript
+this.$loading.close();
+```
+loading可配置的选项,支持Promise回调
+``` javascript
+this.$loading({
+  fullScreen: true,
+  animationType:'default',
+  text: '正在加载...',
+}).then(res => {
+  this.$toast('点击了确定');
+});
+```
+ key       |    value     |    description  | default
+| :---     | :------------| :------: | :----------:
+| fullScreen | Boolean  |  是否全屏遮罩  |  false,
+| animationType | String | 加载动画效果  | 'default'('ring')
+| text     | String | 加载文字提示    | '加载中'
+
+
