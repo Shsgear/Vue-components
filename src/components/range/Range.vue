@@ -1,18 +1,71 @@
 <template>
   <div class="range" sun-range>
-    <slot name="start"></slot>
+    <slot name="start">
+      <span v-text="min"></span>
+    </slot>
+
     <div class="range-content">
       <div class="range-track"></div>
       <div class="range-progress"></div>
-      <div class="range-dot"></div>
+      <div class="range-dot" v-drag="drag" ref="dot"></div>
     </div>
-    <slot name="end"></slot>
+    <slot name="end">
+      <span v-text="max"></span>
+    </slot>
   </div>
 
 </template>
 <script>
 export default {
   name: 'sun-range',
+  props: {
+
+    min: {
+      type: Number,
+      default: 0,
+    },
+    max: {
+      type: Number,
+      default: 100,
+    },
+    step: {
+      type: Number,
+      default: 1,
+    },
+  },
+  data() {
+    return {
+      canDrag: false,
+      value: 0,
+      startX: 0,
+    };
+  },
+  directives: {
+    drag: {
+      bind(el, binding) {
+        let oDot = el;
+        /* eslint-disable no-param-reassign */
+        oDot.onmousedown = function(e) {
+          this.canDrag = true;
+          this.startX = e.clientX;
+          console.log(e.clientX);
+          oDot.onmousemove = function() {
+
+          }
+        };
+      },
+    },
+  },
+  computed: {
+    computedVal() {
+      return this.value;
+    },
+  },
+  methods: {
+    drag() {
+
+    }
+  },
 };
 </script>
 
@@ -36,7 +89,8 @@ export default {
         right: -30px;
         border-top-color: #a9acb1;
         border-top-style: solid;
-        border-top-width: 1px;
+        border-top-width: 2px;
+        cursor: pointer;
       }
       .range-progress {
         position: absolute;
@@ -54,7 +108,7 @@ export default {
         width: 28px;
         height: 28px;
         border-radius: 100%;
-        cursor: move;
+        cursor: pointer;
         box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
       }
     }
