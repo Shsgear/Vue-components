@@ -13,6 +13,7 @@
     <div class="range-wrapper">
       <sun-range>
         <span slot="start" class="range-left">0</span>
+
         <span slot="end" class="range-right">100</span>
       </sun-range>
     </div>
@@ -120,4 +121,5 @@ html, body{
   width: 50%;
   margin: 40px auto;
 }
+
 </style>

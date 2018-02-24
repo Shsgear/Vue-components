@@ -1,7 +1,7 @@
 <template>
   <div class="range" sun-range>
     <slot name="start">
-      <span v-text="min"></span>
+      <!-- <span v-text="min" class="start-text"></span> -->
     </slot>
 
     <div class="range-content">
@@ -10,12 +10,13 @@
       <div class="range-dot" v-drag="drag" ref="dot"></div>
     </div>
     <slot name="end">
-      <span v-text="max"></span>
+      <!-- <span v-text="max" class="end-text"></span> -->
     </slot>
   </div>
 
 </template>
 <script>
+let vm = this;
 export default {
   name: 'sun-range',
   props: {
@@ -35,24 +36,56 @@ export default {
   },
   data() {
     return {
-      canDrag: false,
+      canDrag: true,
       value: 0,
       startX: 0,
+      endX: 0,
     };
   },
+
   directives: {
     drag: {
       bind(el, binding) {
-        let oDot = el;
+        const oDot = el;
         /* eslint-disable no-param-reassign */
-        oDot.onmousedown = function(e) {
+        // if (!vm.canDrag) return;
+        oDot.addEventListener('touchstart', function (e) {
           this.canDrag = true;
-          this.startX = e.clientX;
-          console.log(e.clientX);
-          oDot.onmousemove = function() {
+          this.startX = e.changedTouches[0].clientX;
 
+        }, false);
+        oDot.addEventListener('touchmove', function (e) {
+          e.preventDefault && e.preventDefault();
+          let px = e.changedTouches[0].clientX;
+          let offsetLeft = oDot.offsetParent.offsetLeft;
+          let diff = px - offsetLeft - oDot.style.width / 2;
+          let maxLen = oDot.offsetParent.style.width - oDot.style.width / 2;
+          // console.log(maxLen);
+          console.log(maxLen);
+          oDot.style.left = diff + 'px';
+          if (diff <= 0) {
+            oDot.style.left = - oDot.style.width / 2 + 'px';
           }
-        };
+          //  else if (diff > maxLen) {
+          //   oDot.style.left = maxLen + 'px';
+          // } else {
+
+          // }
+          this.endX = oDot.offsetLeft;
+          }, false);
+        oDot.addEventListener('touchend', function (e) {
+          // let rangeLen = this.max - this.min;
+
+        }, false);
+        // oDot.ontouchstart = function(e) {
+        //   this.canDrag = true;
+        //   // this.startX = e.;
+        //   this.startX = e.originalEvent.changedTouches[0].clientX;
+        //   console.log(this.startX);
+        //   oDot.onmousemove = function() {
+        //     // console.log();
+        //   }
+        // };
       },
     },
   },
@@ -64,7 +97,7 @@ export default {
   methods: {
     drag() {
 
-    }
+    },
   },
 };
 </script>
@@ -72,16 +105,17 @@ export default {
 <style lang="scss" scoped>
   .range{
     width: 100%;
-    // background: #000;
     height: 28px;
     line-height: 28px;
     display: flex;
+    justify-content: space-between;
+
     .range-content{
-      width: 100%;
+      flex: 1 0 auto;
       position: relative;
       height: 100%;
-      margin-right: 30px;
       .range-track{
+        width: 100%;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
