@@ -6,8 +6,8 @@
 
     <div class="range-content">
       <div class="range-track"></div>
-      <div class="range-progress"></div>
-      <div class="range-dot" v-drag="drag" ref="dot"></div>
+      <div class="range-progress" ref="progress" :style="{ 'border-top-color': progressColor}"></div>
+      <div class="range-dot" v-doDrag="drag" ref="dot"> {{value}}  </div>
     </div>
     <slot name="end">
       <!-- <span v-text="max" class="end-text"></span> -->
@@ -16,7 +16,7 @@
 
 </template>
 <script>
-let vm = this;
+
 export default {
   name: 'sun-range',
   props: {
@@ -33,6 +33,7 @@ export default {
       type: Number,
       default: 1,
     },
+    progressColor: String,
   },
   data() {
     return {
@@ -44,48 +45,31 @@ export default {
   },
 
   directives: {
-    drag: {
+    doDrag: {
       bind(el, binding) {
         const oDot = el;
-        /* eslint-disable no-param-reassign */
-        // if (!vm.canDrag) return;
-        oDot.addEventListener('touchstart', function (e) {
-          this.canDrag = true;
-          this.startX = e.changedTouches[0].clientX;
-
-        }, false);
+        // oDot.addEventListener('touchstart', function (e) {
+        //   this.canDrag = true;
+        // }, false);
         oDot.addEventListener('touchmove', function (e) {
           e.preventDefault && e.preventDefault();
           let px = e.changedTouches[0].clientX;
+          let halfDotLength = oDot.offsetWidth / 2;
           let offsetLeft = oDot.offsetParent.offsetLeft;
-          let diff = px - offsetLeft - oDot.style.width / 2;
-          let maxLen = oDot.offsetParent.style.width - oDot.style.width / 2;
-          // console.log(maxLen);
-          console.log(maxLen);
-          oDot.style.left = diff + 'px';
-          if (diff <= 0) {
-            oDot.style.left = - oDot.style.width / 2 + 'px';
+          let diff = px - offsetLeft - halfDotLength;
+          let maxLen = oDot.offsetParent.offsetWidth - halfDotLength;
+          if (diff <= -halfDotLength) {
+            oDot.style.left = -halfDotLength + 'px';
+          } else if (diff > maxLen) {
+            oDot.style.left = maxLen + 'px';
+          } else {
+            oDot.style.left = diff + 'px';
           }
-          //  else if (diff > maxLen) {
-          //   oDot.style.left = maxLen + 'px';
-          // } else {
-
-          // }
-          this.endX = oDot.offsetLeft;
-          }, false);
-        oDot.addEventListener('touchend', function (e) {
-          // let rangeLen = this.max - this.min;
-
+          binding.value({dotX: oDot.offsetLeft + halfDotLength, trackLen: oDot.offsetParent.offsetWidth});
         }, false);
-        // oDot.ontouchstart = function(e) {
-        //   this.canDrag = true;
-        //   // this.startX = e.;
-        //   this.startX = e.originalEvent.changedTouches[0].clientX;
-        //   console.log(this.startX);
-        //   oDot.onmousemove = function() {
-        //     // console.log();
-        //   }
-        // };
+        // oDot.addEventListener('touchend', function (e) {
+
+        // }, false);
       },
     },
   },
@@ -95,7 +79,13 @@ export default {
     },
   },
   methods: {
-    drag() {
+    drag(val) {
+      let trackLen = val.trackLen;
+      let dotX = val.dotX;
+      let ratio = parseInt((dotX / trackLen) * 100);
+      let progress = this.$refs.progress;
+      progress.style.width = dotX + 'px';
+      this.value = this.step * Math.round(ratio / this.step);
 
     },
   },
@@ -128,16 +118,18 @@ export default {
       }
       .range-progress {
         position: absolute;
-        display: block;
-        background-color: #26a2ff;
         top: 50%;
-        transform: translateY(-50%);
+        display: block;
         width: 0;
+        transform: translateY(-50%);
+        border-top-color: #a9acb1;
+        border-top-style: solid;
+        border-top-width: 2px;
       }
       .range-dot{
         background-color: #fff;
         position: absolute;
-        left: 0;
+        left: -14px;
         top: 0;
         width: 28px;
         height: 28px;

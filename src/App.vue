@@ -11,9 +11,8 @@
     <!-- eslint-disable max-len -->
     <button @click="loading({fullscreen: false, animationType: 'spinner', fullscreen: true})">Loading with fullscreen</button>
     <div class="range-wrapper">
-      <sun-range>
+      <sun-range :min="0" :max="120">
         <span slot="start" class="range-left">0</span>
-
         <span slot="end" class="range-right">100</span>
       </sun-range>
     </div>
@@ -28,15 +27,6 @@ export default {
   data() {
     return {
 
-      // popupTitle: '',
-      // popupShow: false,
-      // popupTitle: '',
-      // popupMessage: '',
-      // popupCancelText: '取消',
-      // popupConfirmText: '确定',
-      // closeIconVisible: true,
-      // popupBtnCancel: true,
-      // popupBtnConfirm: true,
     };
   },
   created() {
@@ -121,5 +111,10 @@ html, body{
   width: 50%;
   margin: 40px auto;
 }
-
+.range-left{
+  margin-right: 20px;
+}
+.range-right {
+  margin-left: 20px;
+}
 </style>
