@@ -6,7 +6,7 @@ import install from './install';
 import App from './App';
 import router from './router';
 import { Toast, MessageBox } from './components';
-import SunRange from './components/range/Range';
+import SunRange from './components/Range/Range';
 
 Vue.config.productionTip = false;
 Vue.use(Toast);

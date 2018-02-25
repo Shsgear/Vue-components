@@ -82,7 +82,8 @@ export default {
     drag(val) {
       let trackLen = val.trackLen;
       let dotX = val.dotX;
-      let ratio = parseInt((dotX / trackLen) * 100);
+      let maxMinusMin = this.max - this.min;
+      let ratio = parseInt((dotX / trackLen) * maxMinusMin);
       let progress = this.$refs.progress;
       progress.style.width = dotX + 'px';
       this.value = this.step * Math.round(ratio / this.step);

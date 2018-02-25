@@ -11,9 +11,9 @@
     <!-- eslint-disable max-len -->
     <button @click="loading({fullscreen: false, animationType: 'spinner', fullscreen: true})">Loading with fullscreen</button>
     <div class="range-wrapper">
-      <sun-range :min="0" :max="120">
+      <sun-range :min="0" :max="120" :progressColor="'#3e3e3e'" :step="10">
         <span slot="start" class="range-left">0</span>
-        <span slot="end" class="range-right">100</span>
+        <span slot="end" class="range-right">120</span>
       </sun-range>
     </div>
 
