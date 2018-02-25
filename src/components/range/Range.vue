@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable max-len -->
-  <div sun-range :class="['range', canDrag ? 'range-disabled' : '']">
+  <div sun-range :class="['range', disabled ? 'range-disabled' : '']">
     <slot name="start"></slot>
     <div class="range-content">
       <div class="range-track"></div>
@@ -30,7 +30,7 @@ export default {
       default: 1,
     },
     progressColor: String,
-    canDrag: {
+    disabled: {
       type: [Boolean, String],
     },
   },
@@ -47,6 +47,7 @@ export default {
         const oDot = el;
         oDot.addEventListener('touchmove', (e) => {
           e.preventDefault ? e.preventDefault() : e.returnValue = false;
+          // --- 祖先.range元素类有disabled时禁用掉 ---//
           if (e.target.parentNode.parentNode.className.indexOf('disabled') > -1) {
             return;
           }
