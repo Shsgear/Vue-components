@@ -1,26 +1,22 @@
 <template>
-  <div class="range" sun-range>
-    <slot name="start">
-      <!-- <span v-text="min" class="start-text"></span> -->
-    </slot>
-
+  <!-- eslint-disable max-len -->
+  <div sun-range :class="['range', canDrag ? 'range-disabled' : '']">
+    <slot name="start"></slot>
     <div class="range-content">
       <div class="range-track"></div>
       <div class="range-progress" ref="progress" :style="{ 'border-top-color': progressColor}"></div>
       <div class="range-dot" v-doDrag="drag" ref="dot"> {{value}}  </div>
     </div>
-    <slot name="end">
-      <!-- <span v-text="max" class="end-text"></span> -->
-    </slot>
+
+    <slot name="end"></slot>
   </div>
 
 </template>
 <script>
-
+/* eslint-disable max-len, no-unused-expressions */
 export default {
   name: 'sun-range',
   props: {
-
     min: {
       type: Number,
       default: 0,
@@ -34,60 +30,53 @@ export default {
       default: 1,
     },
     progressColor: String,
+    canDrag: {
+      type: [Boolean, String],
+    },
   },
   data() {
     return {
-      canDrag: true,
       value: 0,
       startX: 0,
       endX: 0,
     };
   },
-
   directives: {
     doDrag: {
       bind(el, binding) {
         const oDot = el;
-        // oDot.addEventListener('touchstart', function (e) {
-        //   this.canDrag = true;
-        // }, false);
-        oDot.addEventListener('touchmove', function (e) {
-          e.preventDefault && e.preventDefault();
-          let px = e.changedTouches[0].clientX;
-          let halfDotLength = oDot.offsetWidth / 2;
-          let offsetLeft = oDot.offsetParent.offsetLeft;
-          let diff = px - offsetLeft - halfDotLength;
-          let maxLen = oDot.offsetParent.offsetWidth - halfDotLength;
-          if (diff <= -halfDotLength) {
-            oDot.style.left = -halfDotLength + 'px';
-          } else if (diff > maxLen) {
-            oDot.style.left = maxLen + 'px';
-          } else {
-            oDot.style.left = diff + 'px';
+        oDot.addEventListener('touchmove', (e) => {
+          e.preventDefault ? e.preventDefault() : e.returnValue = false;
+          if (e.target.parentNode.parentNode.className.indexOf('disabled') > -1) {
+            return;
           }
-          binding.value({dotX: oDot.offsetLeft + halfDotLength, trackLen: oDot.offsetParent.offsetWidth});
-        }, false);
-        // oDot.addEventListener('touchend', function (e) {
 
-        // }, false);
+          const px = e.changedTouches[0].clientX;
+          const halfDotLength = oDot.offsetWidth / 2;
+          const offsetLeft = oDot.offsetParent.offsetLeft;
+          const diff = px - offsetLeft - halfDotLength;
+          const maxLen = oDot.offsetParent.offsetWidth - halfDotLength;
+          if (diff <= -halfDotLength) {
+            oDot.style.left = `${-halfDotLength}px`;
+          } else if (diff > maxLen) {
+            oDot.style.left = `${maxLen}px`;
+          } else {
+            oDot.style.left = `${diff}px`;
+          }
+          binding.value({ dotX: oDot.offsetLeft + halfDotLength, trackLen: oDot.offsetParent.offsetWidth });
+        }, false);
       },
-    },
-  },
-  computed: {
-    computedVal() {
-      return this.value;
     },
   },
   methods: {
     drag(val) {
-      let trackLen = val.trackLen;
-      let dotX = val.dotX;
-      let maxMinusMin = this.max - this.min;
-      let ratio = parseInt((dotX / trackLen) * maxMinusMin);
-      let progress = this.$refs.progress;
-      progress.style.width = dotX + 'px';
+      const trackLen = val.trackLen;
+      const dotX = val.dotX;
+      const maxMinusMin = this.max - this.min;
+      const ratio = parseInt((dotX / trackLen) * maxMinusMin, 10);
+      const progress = this.$refs.progress;
+      progress.style.width = `${dotX}px`;
       this.value = this.step * Math.round(ratio / this.step);
-
     },
   },
 };
@@ -100,11 +89,22 @@ export default {
     line-height: 28px;
     display: flex;
     justify-content: space-between;
-
+    &.range-disabled{
+      .range-track{
+        border-top-color: #ccc;
+      }
+      .range-progress{
+        border-top-color: desaturate($color: #a9acb1, $amount: 1)
+      }
+      .range-dot{
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .4);
+      }
+    }
     .range-content{
       flex: 1 0 auto;
       position: relative;
       height: 100%;
+    }
       .range-track{
         width: 100%;
         position: absolute;
@@ -136,9 +136,9 @@ export default {
         height: 28px;
         border-radius: 100%;
         cursor: pointer;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .4);
       }
-    }
+
   }
 </style>
 
